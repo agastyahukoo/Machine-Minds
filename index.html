@@ -271,6 +271,11 @@
         max-width: 800px; /* Set a maximum width for the code box */
         margin: 0 auto; /* Center the code box horizontally */
     }
+
+    /* Style the typed code lines */
+    .typing-effect {
+        white-space: pre-line; /* Preserve newlines and spaces */
+    }
 </style>
 </head>
 <body>
@@ -327,18 +332,7 @@
     // Function to simulate typing effect for code text
     function typeCodeText(codeText) {
         let codeBox = document.querySelector('.typing-effect');
-        let codeLines = codeText.split('\n');
-        let currentIndex = 0;
-
-        function typeLine() {
-            if (currentIndex < codeLines.length) {
-                codeBox.textContent += codeLines[currentIndex] + '\n';
-                currentIndex++;
-                setTimeout(typeLine, 50); // Duration for each line
-            }
-        }
-
-        typeLine(); // Initiate the typing effect
+        codeBox.textContent = codeText; // Display all lines at once
     }
 </script>
 
