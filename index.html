@@ -274,6 +274,7 @@
 
     /* Style the typed code lines */
     .typing-effect {
+        font-family: 'Consolas', monospace;
         white-space: pre-line; /* Preserve newlines and spaces */
     }
 </style>
@@ -332,7 +333,18 @@
     // Function to simulate typing effect for code text
     function typeCodeText(codeText) {
         let codeBox = document.querySelector('.typing-effect');
-        codeBox.textContent = codeText; // Display all lines at once
+        let codeLines = codeText.split('\n');
+        let currentLineIndex = 0;
+
+        function typeLine() {
+            if (currentLineIndex < codeLines.length) {
+                codeBox.textContent += codeLines[currentLineIndex] + '\n';
+                currentLineIndex++;
+                setTimeout(typeLine, 50); // Duration for each line
+            }
+        }
+
+        typeLine(); // Initiate the typing effect
     }
 </script>
 
@@ -342,7 +354,7 @@
             <h2>Code of the Day</h2>
             <p>Check out today's featured code snippet:</p>
             <div class="code-box">
-                <pre class="typing-effect code" style="font-family: 'Consolas', monospace;"></pre>
+                <pre class="typing-effect code"></pre>
             </div>
         </div>
     </section>
