@@ -164,6 +164,15 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
+.code {
+    background-color: #1E1E1E; /* Dark gray background color for the code box */
+    color: #E0E0E0; /* Light gray text color for the code */
+    padding: 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    overflow-x: auto; /* Enable horizontal scrolling for long code lines */
+}
+
 .blog-post:hover {
     transform: translateY(-10px); /* Lift the blog post box slightly on hover */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase the shadow for depth on hover */
@@ -242,7 +251,27 @@
                 transform: scale(1);
             }
         }
-    </style>
+
+    /* Center the Code of the Day content */
+    .code-of-the-day .code-content {
+        text-align: center;
+    }
+
+    /* Style the Code of the Day title and paragraph */
+    .code-of-the-day h2, .code-of-the-day p {
+        margin-bottom: 10px;
+    }
+
+    /* Style the Code of the Day code box */
+    .code-box {
+        background-color: #1E1E1E; /* Dark gray background color for the code box */
+        border-radius: 5px;
+        padding: 20px;
+        overflow-x: auto;
+        max-width: 800px; /* Set a maximum width for the code box */
+        margin: 0 auto; /* Center the code box horizontally */
+    }
+</style>
 </head>
 <body>
     <header>
@@ -283,8 +312,48 @@
 
         typeTitle(); // Initiate the typing effect
 
-        /* ... Existing Dark Mode JavaScript ... */
-    </script>
+    // Read the contents of the local text file
+    const codeFilePath = 'code-of-the-day.txt';
+    
+    fetch(codeFilePath)
+        .then(response => response.text())
+        .then(codeText => {
+            typeCodeText(codeText);
+        })
+        .catch(error => {
+            console.error('Error reading code file:', error);
+        });
+
+    // Function to simulate typing effect for code text
+    function typeCodeText(codeText) {
+        let codeBox = document.querySelector('.typing-effect');
+        let codeLines = codeText.split('\n');
+        let currentIndex = 0;
+
+        function typeLine() {
+            if (currentIndex < codeLines.length) {
+                codeBox.textContent += codeLines[currentIndex] + '\n';
+                currentIndex++;
+                setTimeout(typeLine, 50); // Duration for each line
+            }
+        }
+
+        typeLine(); // Initiate the typing effect
+    }
+</script>
+
+    <!-- Code of the Day section -->
+    <section class="code-of-the-day">
+        <div class="code-content">
+            <h2>Code of the Day</h2>
+            <p>Check out today's featured code snippet:</p>
+            <div class="code-box">
+                <pre class="typing-effect code" style="font-family: 'Consolas', monospace;"></pre>
+            </div>
+        </div>
+    </section>
+
+
         <!-- Blog post box -->
         <div class="blog-posts">
             <!-- Sample blog post links -->
